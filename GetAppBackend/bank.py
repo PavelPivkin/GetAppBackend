@@ -3,12 +3,14 @@ from flask import request, session, make_response
 from flask.ext.api import status
 import users
 import os
+import db
 
 JSESSIONID_LENGTH = 32
 
 @app.route('/login', methods=['POST'])
 def login():
     print(users.data, request.headers)
+    db.add_client()
     user = next(u for u in users.data if u['username'] == request.headers.get('username'))
     if (user is not None and user['password'] == request.headers['password']):
         sessionId = os.urandom(JSESSIONID_LENGTH)
