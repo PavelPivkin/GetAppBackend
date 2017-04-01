@@ -5,15 +5,13 @@ import users
 import os
 import db
 
-JSESSIONID_LENGTH = 32
 
 @app.route('/login', methods=['POST'])
 def login():
     print(users.data, request.headers)
     user = next(u for u in users.data if u['username'] == request.headers.get('username'))
     if (user is not None and user['password'] == request.headers['password']):
-        sessionId = os.urandom(JSESSIONID_LENGTH)
-        session['JSSESIONID'] = sessionId
+        session['JSSESIONID'] = user['username']
         response = make_response()
         return response, status.HTTP_200_OK
     else:
@@ -24,14 +22,9 @@ def login():
 @app.route('/logout', methods=['POST'])
 def logout():
     # remove the username from the session if it's there
-    sessionId = request.cookies.get('JSSESIONID')
-    session.pop(sessionId, None)    
-    response = make_response()
-    return response, status.HTTP_200_OK
-
     try:
-        session.pop(request.headers['JSSESIONID'], None)
-
+        username = request.cookies.get('JSSESIONID')
+        session.pop(username, None)    
         response = make_response()
         return response, status.HTTP_200_OK
     except Exception, e:
