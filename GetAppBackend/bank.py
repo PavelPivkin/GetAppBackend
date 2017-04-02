@@ -73,14 +73,14 @@ def _request():
 @app.route('/transfer/c2c', methods=['POST'])
 def transfer_c2c():
     try:
-        username = request.cookies.get('JSSESIONID')
+        username = session['JSSESIONID']
         if username is not None:
             json_request = request.get_json()
             db.transfer (
                 json_request["srcCardId"], 
                 json_request["dstCardId"],
                 json_request["dstCardNumber"],
-                json_request["amount"],
+                json_request["amount"]
             )
             card = db.get_card(username)
             json = jsonify(card)

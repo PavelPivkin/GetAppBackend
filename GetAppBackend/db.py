@@ -19,8 +19,9 @@ def transfer (srcCardId, dstCardId, dstCardNumber, amount):
             "UPDATE Card SET balance = balance + %s WHERE cardId = %s ",
             (amount, dstCardId))
         connection.commit()
+        return 0
     except Exception, e:
-        raise
+        return 1
     
 
 # SELECT
