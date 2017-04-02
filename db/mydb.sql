@@ -20,6 +20,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Client` (
   `phone` VARCHAR(20) NOT NULL,
   `address` VARCHAR(120) NULL,
   `photo` BINARY NULL,
+  `password` VARCHAR(64) NOT NULL,
   PRIMARY KEY (`clientId`),
   UNIQUE INDEX `UNIQUE` (`username` ASC))
 ENGINE = InnoDB;
@@ -41,6 +42,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Card` (
   `paymentSystem` VARCHAR(45) NULL,
   `product` VARCHAR(45) NULL,
   `type` VARCHAR(45) NULL,
+  `CardNumber` VARCHAR(20) NULL,
   PRIMARY KEY (`cardId`),
   INDEX `fk_Card_1_idx` (`clientId` ASC),
   CONSTRAINT `fk_Card_1`
