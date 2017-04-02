@@ -39,6 +39,7 @@ def complete_transfer():
 		None, 
 		transfer_item["amount"]
 	)
+	return make_response(), status.HTTP_200_OK
 
 def get_transfer_item (code):
 	transfer_item = next((x for x in transfer_list if x["code"] == code))
